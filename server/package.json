@@ -1,0 +1,31 @@
+{
+  "name": "abz",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "seed": "node ./src/scripts/seed.js",
+    "start": "node ./src/index.js",
+    "dev": "nodemon ./src/index.js"
+  },
+  "prisma": {
+    "seed": "node ./prisma/seed.js"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.11.0",
+    "express": "^4.19.1",
+    "express-validator": "^7.0.1",
+    "image-size": "^1.1.1",
+    "jsonwebtoken": "^9.0.2",
+    "multer": "^1.4.5-lts.1",
+    "prisma": "^5.11.0",
+    "sharp": "^0.32.6",
+    "tinify": "^1.7.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
