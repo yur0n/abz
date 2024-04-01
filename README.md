@@ -1,4 +1,4 @@
-# ABZ
+# abz
 
 ## 1. Rename and Configure Environment Variables
 
