@@ -1,5 +1,7 @@
 import prisma from "../src/db/prisma.js";
-const HOST = process.env.HOST || 'http://localhost:80';
+
+const HOST = process.env.HOST || 'http://localhost';
+const PORT = process.env.PORT || 80;
 
 const names = ['John', 'Jane', 'Michael', 'Emily', 'David', 'Sarah', 'Daniel', 'Olivia', 'Matthew', 'Sophia', 'James', 'Emma', 'Benjamin', 'Ava', 'William', 'Isabella', 'Alexander', 'Mia', 'Ethan', 'Charlotte', 'Joseph', 'Amelia', 'Henry', 'Harper', 'Samuel', 'Evelyn', 'Nicholas', 'Abigail', 'Anthony', 'Emily', 'Daniel', 'Elizabeth'];
 const getRandomName = () => names[Math.floor(Math.random() * names.length)];
@@ -38,7 +40,7 @@ for (let i = 0; i < 45; i++) {
 		position: position,
 		position_id: positions.indexOf(position) + 1,
 		registration_timestamp: getRandomTimestamp(),
-		photo: HOST + '/images/users/initial.jpeg'
+		photo: HOST + PORT + '/images/users/initial.jpeg'
 	};
 	users.push(user);
 }
