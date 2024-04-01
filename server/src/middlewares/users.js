@@ -2,7 +2,8 @@ import prisma from '../db/prisma.js';
 import { query, validationResult } from 'express-validator';
 import { ValidationError } from './errorHandler.js';
 
-const HOST = process.env.HOST || 'http://localhost:80';
+const HOST = process.env.HOST || 'http://localhost';
+const PORT = process.env.PORT || '80'
 
 function validateQuery(req, res, next) {
 	const errors = validationResult(req);
@@ -54,8 +55,8 @@ async function getAndSendUsers(req, res, next) {
 			
 		}
 	
-		const nextLink = nextPage <= totalPages ? `${HOST}/users?page=${nextPage}&count=${count}` : null;
-		const prevLink = prevPage > 0 ? `${HOST}/users?page=${prevPage}&count=${count}` : null;
+		const nextLink = nextPage <= totalPages ? `${HOST}:${PORT}/users?page=${nextPage}&count=${count}` : null;
+		const prevLink = prevPage > 0 ? `${HOST}:${PORT}/users?page=${prevPage}&count=${count}` : null;
 	
 		res.status(200).json({
 				success: true,

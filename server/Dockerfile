@@ -6,14 +6,12 @@ COPY package*.json ./
 
 RUN npm install
 
-COPY prisma ./prisma
+COPY . .
 
 RUN npx prisma generate
 
-COPY . .
-
 EXPOSE 8880
 
-CMD ["node", "./src/index.js"]
+# CMD ["npm", "run", "start:migrate"]
 
-# RUN npx prisma migrate dev --name init --preview-feature
+CMD ["node", "./src/index.js"]

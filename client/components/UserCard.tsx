@@ -9,20 +9,30 @@ export type TUserCard = {
 	email: string,
 	phone: string,
 	position_id: number,
-	registration_timestamp: string
+	registration_timestamp: number,
 	photo: string
+}
+
+function formatDate(timestamp: number) {
+  return new Intl.DateTimeFormat('uk-UA', {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit',
+    }).format(new Date(timestamp * 1000));
 }
 
 export default function UserCard({
 	name, position, id, email, phone, position_id, registration_timestamp, photo
 	}: TUserCard) {
 	return (
-		<Card className=" flex flex-wrap mr-4 mb-4 bg-blue-100 ">
+		<Card className=" flex flex-wrap mr-4 mb-4 bg-blue-100">
 			<CardHeader className="flex">
 				<Avatar className="flex-shrink-0">
 					<AvatarImage src={photo} />
 					<AvatarFallback>
-						<Image src="/next.svg" width={100} alt={'User'} height={100} />
+						<Image src="/initial.jpeg" width={100} alt={'User'} height={100} />
 					</AvatarFallback>
 				</Avatar>
 				<div>
@@ -34,7 +44,7 @@ export default function UserCard({
 				<CardContent>
 					ID: {id}
 				</CardContent>
-				<CardContent>
+				<CardContent className="w-[280px]">
 					Email: {email}
 				</CardContent>
 				<CardContent>
@@ -44,7 +54,7 @@ export default function UserCard({
 					Position ID: {position_id}
 				</CardContent>
 				<CardContent>
-					Registration: {registration_timestamp}
+					Registration: {formatDate(registration_timestamp)}
 				</CardContent>
 			</div>
 		</Card>

@@ -5,6 +5,7 @@ import createUser from './middlewares/createUser.js';
 import errorHandler from './middlewares/errorHandler.js';
 import { getUser, getUsers } from './middlewares/users.js';
 import positions from './middlewares/positions.js';
+const clientOrigin = process.env.CLIENT_ORIGIN || 'http://localhost';
 
 const app = express();
 
@@ -12,15 +13,18 @@ app.use(express.static('public'));
 app.use(express.json());
 
 app.use((req, res, next) => {
-	console.log(req.headers.origin);
-	res.setHeader('Access-Control-Allow-Origin', 'http://yuron.xyz:80'); // http://localhost
+	res.setHeader('Access-Control-Allow-Origin', clientOrigin);
 	res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-	res.setHeader('Access-Control-Allow-Headers', 'Token, Content-Typ');
+	res.setHeader('Access-Control-Allow-Headers', 'Token, Content-Type');
 	next();
 });
 
 app.options('*', (req, res) => {
   res.sendStatus(200);
+});
+
+app.get('/', (req, res) => {
+	res.status(200).json({ success: true, message: 'Welcome to the API' });
 });
 
 app.get('/token', generateToken);

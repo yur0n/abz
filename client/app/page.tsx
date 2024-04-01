@@ -1,21 +1,23 @@
 'use client';
 
 import axios from "axios";
-console.log(process.env.NEXT_PUBLIC_API_URL);
-import Pagination from "@/components/pagination";
-import { ScrollArea } from "@/components/ui/scroll-area"
-import { ProfileForm } from "@/components/form"
-import { Button } from "@/components/ui/button"
+const apiUrl = process.env.NEXT_PUBLIC_API_URI;
+
+
+import Pagination from "@/components/Pagination";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { ProfileForm } from "@/components/ProfileForm";
+import { Button } from "@/components/ui/button";
 
 import { useState } from "react";
 
-import UserCard, { TUserCard } from "@/components/UserCard"
+import UserCard, { TUserCard } from "@/components/UserCard";
 
 import React from "react";
 
 export default function Home() {
   const [visibleCount, setVisibleCount] = useState(6);
-  const [state, setState] = useState({ 
+  const [state, setState] = useState({  
     response: {
       success: false,
       message: '',
@@ -33,14 +35,14 @@ export default function Home() {
   function handleNewUser(resJson: any) {
       setState(prevState => ({ ...prevState, text: resJson }));
   }
-  async function getUsers (url: string = 'http://yuron.xyz:2052/users?count=18&page=1') {
+  async function getUsers (url: string = apiUrl + '/users?count=18&page=1') {
     setVisibleCount(6);
     axios.get(url).then(res => res.data)
     .then((res: any) => {
       setState({ response: res, text: res });
     })
     .catch((error) => {
-      setState(prevState => ({ ...prevState, text: error.response.data }));
+      setState(prevState => ({ ...prevState, text: error.response?.data }));
       console.error(error)
     })
   }
@@ -52,14 +54,14 @@ export default function Home() {
   }
 
   async function getToken() {
-    axios.get('http://yuron.xyz:2052/token').then(res => res.data)
+    axios.get(apiUrl + '/token').then(res => res.data)
     .then((res: any) => {
       localStorage.setItem('token', res.token);
       setState(prevState => ({ ...prevState, text: res }));
     })
     .catch((error) => {
       console.error(error)
-      setState(prevState => ({ ...prevState, text: error.response.data }));
+      setState(prevState => ({ ...prevState, text: error.response?.data }));
     })
   }
 

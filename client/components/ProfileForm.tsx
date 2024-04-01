@@ -1,8 +1,8 @@
 "use client"
 
- 
 import { useForm } from "react-hook-form"
 import axios from "axios";
+const apiUrl = process.env.NEXT_PUBLIC_API_URI;
 
 import { Button } from "@/components/ui/button"
 import {
@@ -40,17 +40,18 @@ export function ProfileForm({ handleNewUser, loadUsers, getToken }:
     const formData = new FormData();
     for (const key in values) {
       if (key in values) {
-        const value = values[key as keyof typeof values];
+        formData.append(key, values[key as keyof typeof values]);
       }
     }
+    
     const fileInput: any = document.querySelector('input[type="file"]');
     if (fileInput.files.length) {
       formData.append('photo', fileInput.files[0]);
     }
+
     try {
       const token = localStorage.getItem('token');
-      console.log(token);
-      const response = await axios.post('http://yuron.xyz:2052/users', formData, {
+      const response = await axios.post(apiUrl + '/users', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
           'Token': token,
@@ -59,7 +60,7 @@ export function ProfileForm({ handleNewUser, loadUsers, getToken }:
       handleNewUser(response.data);
     } catch (error: any) {
       console.error(error);
-      handleNewUser(error.response.data);
+      handleNewUser(error.response?.data);
       
     }
     form.reset();

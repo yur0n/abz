@@ -10,7 +10,8 @@ import { ValidationError, TokenError } from './errorHandler.js';
 
 tinify.key = process.env.TINIFY_TOKEN;
 const secret = process.env.JWT_SECRET_KEY || 'JWT_secret_key';
-const HOST = process.env.HOST || 'http://localhost:80';
+const HOST = process.env.HOST || 'http://localhost';
+const PORT = process.env.PORT || 80;
 const emailRegex = /^(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])$/;
 
 
@@ -170,7 +171,7 @@ async function checkAndCreateUser(body, randomPhotoName) {
 			position: position.name,
 			position_id,
 			registration_timestamp: Math.floor(Date.now() / 1000),
-			photo: `${HOST}/images/users/${randomPhotoName}`
+			photo: `${HOST}:${PORT}/images/users/${randomPhotoName}`
 		}
 	});
 	return newUser;

@@ -16,13 +16,17 @@ const getRandomPhone = () => {
 	const countryCode = '+380';
 	const operator = Math.floor(Math.random() * 1000).toString().padStart(3, '0');
 	const phoneNumber = Math.floor(Math.random() * 1000000).toString().padStart(6, '0');
-	return `${countryCode}${operator}${phoneNumber}`;
+	return countryCode + operator + phoneNumber;
 };
 
 const positions = ['Developer', 'Designer', 'Manager', 'Engineer', 'Analyst', 'Scientist', 'Specialist', 'Consultant', 'Assistant', 'Advisor', 'Representative'];
 const getRandomPosition = () => positions[Math.floor(Math.random() * positions.length)];
 
-const getRandomTimestamp = () => Math.floor(Math.random() * (new Date().getTime() / 1000));
+const getRandomTimestamp = () => {
+  const fiveYearsAgo = new Date().getTime() - (5 * 365 * 24 * 60 * 60 * 1000);
+  const now = new Date().getTime();
+  return Math.floor((Math.random() * (now - fiveYearsAgo) + fiveYearsAgo) / 1000);
+};
 
 const users = [];
 for (let i = 0; i < 45; i++) {

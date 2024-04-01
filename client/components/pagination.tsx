@@ -6,11 +6,8 @@ import { Pagination,
   PaginationNext,
   PaginationPrevious } from "@/components/ui/pagination";
 
-import React from "react";
-import axios from "axios";
-import { useState } from "react";
-
-export default function PaginationComponent({ page, handlePagination }: { page: number; handlePagination: (goTo: number) => void }) {
+export default function PaginationComponent({ page, handlePagination }: 
+  { page: number; handlePagination: (goTo: number) => void }) {
 
 	return (
     <main>

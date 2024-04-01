@@ -4,30 +4,40 @@ version: '3.9'
 services:
   client:
     container_name: client
-    image: client
+    image: yur0n/abz-client
     build:
       context: ./client
       dockerfile: Dockerfile
+      args:
+        NEXT_PUBLIC_API_URI: ${NEXT_PUBLIC_API_URI}
     restart: always
     ports:
-      - 80:80
+      - ${CLIENT_PORT}:${CLIENT_PORT}
+    environment:
+      - NEXT_PUBLIC_API_URI=${NEXT_PUBLIC_API_URI}
+      - PORT=${CLIENT_PORT}
     depends_on:
       - server
+
   server:
     container_name: server
+    image: yur0n/abz-server
     build:
       context: ./server
       dockerfile: Dockerfile
     restart: always
+    # volumes:
+    #   - ../certs:/app/certs
     ports:
-      - 2052:2052
+      - ${SERVER_PORT}:${SERVER_PORT}
     environment:
       - NODE_ENV=production
-      - PORT=2052
-      - HOST=http://yuron.xyz:2052
-      - DATABASE_URL=postgresql://admin:admin@db:5432/users?schema=public
-      - JWT_SECRET_KEY=JWTBIGsecret
-      - TINIFY_TOKEN=6Qvh7qNXNrQ9tzS0mzvwMV1Jbwt1Yn7R
+      - PORT=${SERVER_PORT}
+      - HOST=${SERVER_HOST}
+      - CLIENT_ORIGIN=${CLIENT_ORIGIN}
+      - JWT_SECRET_KEY=${JWT_SECRET_KEY}
+      - TINIFY_TOKEN=${TINIFY_TOKEN}
+      - DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/abz?schema=public
     depends_on:
       - db
   db:
@@ -35,13 +45,12 @@ services:
     image: postgres:13
     restart: always
     environment:
-      POSTGRES_DB: users
-      POSTGRES_USER: admin
-      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: abz
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     ports:
       - 5432:5432
     volumes:
       - pgdata:/var/lib/postgresql/data
-
 volumes: 
   pgdata: {}
