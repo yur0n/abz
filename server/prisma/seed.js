@@ -40,7 +40,7 @@ for (let i = 0; i < 45; i++) {
 		position: position,
 		position_id: positions.indexOf(position) + 1,
 		registration_timestamp: getRandomTimestamp(),
-		photo: HOST + PORT + '/images/users/initial.jpeg'
+		photo: `${HOST}:${PORT}/images/users/initial.jpeg`
 	};
 	users.push(user);
 }

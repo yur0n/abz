@@ -25,7 +25,7 @@ docker exec -it server npx prisma db seed
 
 **CORS:**
 
-- The CORS configuration restricts API server requests to those originating from `CLIENT_ORIGIN`. Remember to replace this placeholder with your actual client domain.
+- The CORS configuration restricts API server requests to those originating from `CLIENT_ORIGIN` specified in `.env` file. Remember to replace this placeholder with your actual client domain.
 
 **TLS:**
 
