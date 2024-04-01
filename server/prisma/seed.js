@@ -60,4 +60,5 @@ async function seed() {
 	}
 	console.log('DB seeded with users and positions!');
 }
+
 seed().catch(console.error).finally(async () => process.exit(0));

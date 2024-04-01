@@ -11,7 +11,7 @@
 ```bash
 docker compose up -d
 ```
-2. You can always build by yourself with provided server and client using `docker compose build` command.
+2. You can always build by yourself with provided server and client using `docker compose build` command (actually, this would be the right first step, as NEXT_PUBLIC_API_URL env variable is passed as an argument during the build time).
 ```bash
 docker compose build
 ```
@@ -25,8 +25,8 @@ docker exec -it server npx prisma db seed
 
 **CORS:**
 
-- The CORS configuration restricts API server requests to those originating from `CLIENT_ORIGIN` specified in `.env` file. Remember to replace this placeholder with your actual client domain.
+- The CORS configuration restricts API server requests to those originating from `CLIENT_ORIGIN` specified in `.env` file.
 
 **TLS:**
 
-- TLS for both the server and client is currently omitted.  You'll need to implement it manually to ensure secure communication.
+- TLS for both the server and client is currently omitted. You'll need to implement it manually to ensure secure communication.
